@@ -1,0 +1,134 @@
+logic OWL
+
+ontology Bear = 
+  <https://ontohub.org/animal_monster/animals.dol?Background>
+ then
+{
+ 
+Class: Bear 
+	SubClassOf: Mammal 
+
+Class: BearTrunk
+	EquivalentTo: QuadrupedTrunk  and part_of some Bear 
+
+Class: BearHead 
+	EquivalentTo: Head and part_of some Bear 
+	
+Class: BearLeg
+	EquivalentTo: Leg and part_of some Bear 
+
+Class: BearClaw
+	EquivalentTo: Claw and part_of some Bear 
+
+Class: BearTail 
+	EquivalentTo: Tail and part_of some Bear
+
+}
+
+end
+
+ontology ABear =  
+ Bear then 
+  {
+ 
+  Individual: thisAnimal
+    Types: Bear
+	
+Individual: t 
+	 Types: BearTrunk 
+	 Facts: part_of thisAnimal, 
+	 	 	has_fiat_boundary t-nb, 
+			has_fiat_boundary t-lflb,
+			has_fiat_boundary t-rflb,
+			has_fiat_boundary t-lblb,
+			has_fiat_boundary t-rblb,
+			has_fiat_boundary t-tb
+
+Individual: t-nb
+	Types: NeckBoundary %% was TrunkNeckBoundary 
+
+Individual: t-lflb
+	Types: LeftForeLimbBoundary  
+
+Individual: t-rflb
+	Types: RightForeLimbBoundary    
+	
+Individual: t-lblb
+	Types: LeftHindLimbBoundary    
+	
+Individual: t-rblb
+	Types: RightHindLimbBoundary       
+
+Individual: t-rblb
+	Types: RightHindLimbBoundary       
+
+Individual: t-tb	
+	Types: TailBoundary
+ 
+%% head
+
+Individual: h
+	Types: BearHead
+	Facts: part_of thisAnimal, 
+			has_fiat_boundary h-nb
+
+Individual: h-nb 
+	Types: ProximalBoundary  
+	Facts: meets t-nb
+
+
+%% ############# Leg (left front) #############
+
+Individual: lfl
+	Types: BearLeg
+	Facts: part_of thisAnimal, 
+	 		has_fiat_boundary lfl-pb, 
+			has_fiat_boundary lfl-db 
+
+Individual: lfl-pb
+	Types: ProximalBoundary 
+	Facts: meets t-lflb
+	 
+Individual: lfl-db
+	Types: DistalBoundary 
+
+%% ############# Claw (left front) #############
+
+Individual: lfh 
+	Types: BearClaw
+	Facts: part_of thisAnimal, 
+	 		has_fiat_boundary lfh-pb 
+ 
+Individual: lhl-pb
+	Types: ProximalBoundary 
+	Facts: meets lfl-db
+
+
+%% ############# Leg (right front) #############
+
+Individual: rfl
+	Types: BearLeg
+	Facts: part_of thisAnimal, 
+	 		has_fiat_boundary rfl-pb, 
+			has_fiat_boundary rfl-db 
+
+Individual: rfl-pb
+	Types: ProximalBoundary 
+	Facts: meets t-rflb
+	 
+Individual: rfl-db
+	Types: DistalBoundary 
+
+%% ############# Claw (right front) #############
+
+Individual: rfh 
+	Types: BearClaw
+	Facts: part_of thisAnimal, 
+	 		has_fiat_boundary rfh-pb 
+ 
+Individual: rhl-pb
+	Types: ProximalBoundary 
+	Facts: meets rfl-db
+
+
+  }
